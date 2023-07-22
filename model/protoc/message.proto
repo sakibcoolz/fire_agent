@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package protoc;
+
+option go_package = "./model/";
+
+message Msg {
+    string topic = 1;
+    string format = 2;
+    repeated DataByte databyte = 3;
+    repeated Commands commands = 4;
+    repeated Talks talks = 5;
+}
+
+message DataByte {
+    bytes data = 1;
+    string filename = 2;
+    repeated string execute = 3;
+}
+
+message Commands {
+    string name = 1;
+    repeated string command = 2;
+}
+
+message Talks {
+    string name = 1;
+    string text = 2;
+}
