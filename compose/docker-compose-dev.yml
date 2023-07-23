@@ -1,0 +1,16 @@
+version: '3'
+services:
+  fire_agent:
+    image: ${service}
+    hostname: ${domain}.${host}
+    container_name: ${domain}.${host}
+    ports:
+      - ${port}:${port}
+    environment:
+      - KEY=${key}
+      - LIVE=${hivedomain}.${host}:${hiveport}
+      - SERVICE=${firedomain}.${host}:${fireport}
+    tty: true
+networks:
+  backend:
+    driver: bridge

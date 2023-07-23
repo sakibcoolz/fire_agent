@@ -4,6 +4,8 @@ import (
 	apimodel "fire_agent/apicaller"
 	"fire_agent/app"
 	"fire_agent/config"
+	"fmt"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,7 +17,7 @@ func main() {
 	agentconfig := new(config.AgentConfig)
 
 	request := apimodel.New()
-	request.Url = "http://localhost:8080/enrollment"
+	request.Url = fmt.Sprintf("http://%s/enrollment", os.Getenv("SERVICE"))
 	request.Body = conf
 	request.Header = []apimodel.Header{
 		{
