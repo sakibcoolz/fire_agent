@@ -24,7 +24,7 @@ var ConnectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err
 func GetMqttConfig() mqtt.Client {
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker(fmt.Sprintf("tcp://%s", os.Getenv("LIVE")))
-	// opts.SetClientID(config.MQTT.ClientID)
+	opts.SetClientID("fire_client")
 	// opts.SetUsername(config.MQTT.Username)
 	// opts.SetPassword(config.MQTT.Password)
 	opts.SetDefaultPublishHandler(MessagePubHandler)

@@ -5,6 +5,7 @@ import (
 	"fire_agent/app"
 	"fire_agent/config"
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -28,6 +29,14 @@ func main() {
 
 	request.Method = "POST"
 	request.SetRequest()
+
+	if request.Status != http.StatusOK {
+		return
+	}
+
+	fmt.Println("Status :", request.Status)
+
+	fmt.Println("Body :", request.Response)
 
 	apimodel.ToStruct(request.Response, agentconfig)
 

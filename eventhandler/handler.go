@@ -15,7 +15,7 @@ type Handlers struct {
 
 func Handler(em *Handlers, client mqtt.Client) {
 	log.Println("Topic", em.MyTopic)
-	token := client.Subscribe(em.MyTopic, 0, em.Health)
+	token := client.Subscribe("topic/fire_client", 0, em.Health)
 	if token.Wait() && token.Error() != nil {
 		panic(token.Error())
 	}

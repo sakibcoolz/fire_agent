@@ -14,6 +14,7 @@ type Request struct {
 	Method   string   `json:"method"`
 	Header   []Header `json:"header"`
 	Response []byte   `json:"response"`
+	Status   int      `json:"status"`
 }
 
 type Header struct {
@@ -68,6 +69,8 @@ func (r *Request) SetRequest() {
 
 		return
 	}
+
+	r.Status = res.StatusCode
 
 	r.Response = body
 }
