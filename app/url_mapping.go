@@ -6,30 +6,27 @@ import (
 	"fire_agent/event"
 	"fire_agent/eventhandler"
 	"fire_agent/service"
-	"fmt"
 	"log"
-	"os"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
-func UrlMapping(r *gin.Engine, configs *config.AgentConfig) *gin.Engine {
+func UrlMapping(r *gin.Engine, configs *config.LoginResponse) *gin.Engine {
 
 	log.Println(configs)
 
-	client := event.GetMqttConfig()
+	client := event.GetMqttConfig(configs)
 
 	service := &service.Service{
-		DB:      &gorm.DB{},
-		Event:   client,
-		Topic:   configs.Topic,
-		MyTopic: fmt.Sprintf("%s_%s", config.GetHostName(), os.Getenv("KEY")),
+		DB:    &gorm.DB{},
+		Event: client,
+		Topic: configs.Topic,
 	}
 
 	handlers := eventhandler.Handlers{
 		Service: service,
-		MyTopic: fmt.Sprintf("%s_%s", config.GetHostName(), os.Getenv("KEY")),
+		Topic:   configs.Topic,
 	}
 
 	controller := &controller.Controller{

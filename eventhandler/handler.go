@@ -10,18 +10,18 @@ import (
 
 type Handlers struct {
 	Service service.IService
-	MyTopic string
+	Topic   string
 }
 
 func Handler(em *Handlers, client mqtt.Client) {
-	log.Println("Topic", em.MyTopic)
-	token := client.Subscribe("topic/fire_client", 0, em.Health)
+	log.Println("Topic", em.Topic)
+	token := client.Subscribe(em.Topic, 0, em.Health)
 	if token.Wait() && token.Error() != nil {
 		panic(token.Error())
 	}
 	token.WaitTimeout(time.Hour * 100)
 
-	log.Println("Subscribed to topic eh ", em.MyTopic)
+	log.Println("Subscribed to topic eh ", em.Topic)
 }
 
 func (h *Handlers) Health(c mqtt.Client, m mqtt.Message) {

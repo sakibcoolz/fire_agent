@@ -15,10 +15,10 @@ func main() {
 	r := gin.Default()
 
 	conf := config.GetDeviceInfo()
-	agentconfig := new(config.AgentConfig)
+	agentconfig := new(config.LoginResponse)
 
 	request := apimodel.New()
-	request.Url = fmt.Sprintf("http://%s/enrollment", os.Getenv("SERVICE"))
+	request.Url = fmt.Sprintf("http://%s/login", os.Getenv("SERVICE"))
 	request.Body = conf
 	request.Header = []apimodel.Header{
 		{

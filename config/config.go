@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -15,25 +14,30 @@ type DeviceInfo struct {
 	Key       string `gorm:"column:key" json:"key"`
 }
 
-type AgentConfig struct {
-	gorm.Model
-	EnrollmentUrl string `gorm:"column:enrollment_url" json:"enrollmentUrl"`
-	EnrolledUrl   string `gorm:"column:enrolled_url" json:"enrolledUrl"`
-	MQTT          string `gorm:"column:mqtt" json:"mqtt"`
-	Topic         string `gorm:"column:topic" json:"topic"`
+// Request body
+type Login struct {
+	Username string `gorm:"username;index:idx_username,unique" json:"username,omitempty"`
+	Key      string `gorm:"column:key" json:"key,omitempty"`
+	Hostname string `gorm:"column:hostname" json:"hostname,omitempty"`
 }
 
-func GetDeviceInfo() *DeviceInfo {
+type LoginResponse struct {
+	ClientID  string `gorm:"client_id" json:"client_id,omitempty"`
+	SessionID string `gorm:"column:session_id" json:"sessionID,omitempty"`
+	Topic     string `gorm:"column:topic" json:"topic"`
+}
+
+func GetDeviceInfo() *Login {
 	hostname := GetHostName()
 	if hostname == "" {
 		log.Println("Blank Hostname")
 		return nil
 	}
 
-	return &DeviceInfo{
-		Hostname:  hostname,
-		SessionID: uuid.New().String(),
-		Key:       os.Getenv("KEY"),
+	return &Login{
+		Hostname: hostname,
+		Username: os.Getenv("USERNAME"),
+		Key:      os.Getenv("KEY"),
 	}
 }
 

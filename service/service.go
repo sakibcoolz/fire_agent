@@ -11,10 +11,9 @@ import (
 )
 
 type Service struct {
-	DB      *gorm.DB
-	Event   mqtt.Client
-	Topic   string
-	MyTopic string
+	DB    *gorm.DB
+	Event mqtt.Client
+	Topic string
 }
 
 type IService interface {
@@ -22,7 +21,7 @@ type IService interface {
 }
 
 func (s *Service) Health() {
-	payload := model.Msg{Topic: s.MyTopic,
+	payload := model.Msg{Topic: s.Topic,
 		Format: "Talks",
 		Talks: []*model.Talks{
 			&model.Talks{Name: "Sakib",

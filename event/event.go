@@ -1,6 +1,7 @@
 package event
 
 import (
+	"fire_agent/config"
 	"fmt"
 	"log"
 	"os"
@@ -21,10 +22,10 @@ var ConnectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err
 	log.Println("Lost Connection Error : ", err.Error())
 }
 
-func GetMqttConfig() mqtt.Client {
+func GetMqttConfig(configs *config.LoginResponse) mqtt.Client {
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker(fmt.Sprintf("tcp://%s", os.Getenv("LIVE")))
-	opts.SetClientID("fire_client")
+	opts.SetClientID(configs.ClientID)
 	// opts.SetUsername(config.MQTT.Username)
 	// opts.SetPassword(config.MQTT.Password)
 	opts.SetDefaultPublishHandler(MessagePubHandler)

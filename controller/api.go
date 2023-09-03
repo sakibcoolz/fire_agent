@@ -9,7 +9,7 @@ import (
 )
 
 type Controller struct {
-	Config  *config.AgentConfig
+	Config  *config.LoginResponse
 	Service service.IService
 }
 

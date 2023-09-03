@@ -10,6 +10,7 @@ services:
       - KEY=${key}
       - LIVE=${hivedomain}.${host}:${hiveport}
       - SERVICE=${firedomain}.${host}:${fireport}
+      - USERNAME=${username}
     tty: true
 networks:
   backend:
