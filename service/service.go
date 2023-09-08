@@ -31,9 +31,6 @@ func (s *Service) Health() {
 
 	str, _ := json.Marshal(payload)
 
-	log.Println(string(str))
-
-	log.Println(s.Topic)
 	token := s.Event.Publish(s.Topic, 0, false, str)
 	if token.Error() != nil {
 		log.Println(token.Error())

@@ -26,6 +26,6 @@ func Handler(em *Handlers, client mqtt.Client) {
 
 func (h *Handlers) Health(c mqtt.Client, m mqtt.Message) {
 	log.Println("Received message Topic : ", m.Topic())
-	log.Println("Data", m.Payload())
+	log.Println("Data", string(m.Payload()))
 	h.Service.Health()
 }
