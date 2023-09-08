@@ -12,13 +12,14 @@ import (
 )
 
 func main() {
-	r := gin.Default()
-
+	fmt.Println("Started")
 	conf := config.GetDeviceInfo()
+	fmt.Println("conf", conf)
 	agentconfig := new(config.LoginResponse)
 
 	request := apimodel.New()
 	request.Url = fmt.Sprintf("http://%s/login", os.Getenv("SERVICE"))
+	fmt.Println("request.Url", request.Url)
 	request.Body = conf
 	request.Header = []apimodel.Header{
 		{
@@ -29,8 +30,9 @@ func main() {
 
 	request.Method = "POST"
 	request.SetRequest()
-
+	fmt.Println("request.Status:===> ", request.Status)
 	if request.Status != http.StatusOK {
+
 		return
 	}
 
@@ -39,6 +41,8 @@ func main() {
 	fmt.Println("Body :", request.Response)
 
 	apimodel.ToStruct(request.Response, agentconfig)
+
+	r := gin.Default()
 
 	app.UrlMapping(r, agentconfig)
 
