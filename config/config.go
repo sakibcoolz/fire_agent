@@ -16,9 +16,9 @@ type DeviceInfo struct {
 
 // Request body
 type Login struct {
-	Username string `gorm:"username;index:idx_username,unique" json:"username,omitempty"`
-	Key      string `gorm:"column:key" json:"key,omitempty"`
-	Hostname string `gorm:"column:hostname" json:"hostname,omitempty"`
+	Username  string `gorm:"username;index:idx_username,unique" json:"username,omitempty"`
+	DeviceKey string `gorm:"column:device_key" json:"device_key,omitempty"`
+	Hostname  string `gorm:"column:hostname" json:"hostname,omitempty"`
 }
 
 type LoginResponse struct {
@@ -35,9 +35,9 @@ func GetDeviceInfo() *Login {
 	}
 
 	return &Login{
-		Hostname: hostname,
-		Username: os.Getenv("USERNAME"),
-		Key:      os.Getenv("KEY"),
+		Hostname:  hostname,
+		Username:  os.Getenv("USERNAME"),
+		DeviceKey: os.Getenv("KEY"),
 	}
 }
 
