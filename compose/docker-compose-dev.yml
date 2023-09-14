@@ -9,7 +9,7 @@ services:
     environment:
       - KEY=${key}
       - LIVE=${hivedomain}.${host}:${hiveport}
-      - SERVICE=${firedomain}.${host}:${fireport}
+      - SERVICE=${firedomain}.${host}:${fireport}/${mainservice}
       - USERNAME=${username}
     tty: true
 networks:
